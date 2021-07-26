@@ -48,9 +48,21 @@
 
 ```
 (interpret #(define =0? dup 0 = end 
+            define gcd 
+                =0? if drop exit endif 
+                swap over mod 
+                gcd 
+            end 
+            90 99 gcd 
+            234 8100 gcd) '())
+=> (18 9)
+```
+
+```
+(interpret #(define =0? dup 0 = end 
             define =1? dup 1 = end 
             define -- 1 - end 
-            define fib 
+             define fib 
                 =0? if drop 0 exit endif 
                 =1? if drop 1 exit endif 
                 -- dup 
@@ -65,17 +77,40 @@
                 make-fib 
             end 
             10 make-fib) (quote ()))
-⇒ (0 1 1 2 3 5 8 13 21 34 55)
+=> (0 1 1 2 3 5 8 13 21 34 55)
 ```
 
 ```
-(interpret #(define =0? dup 0 = end 
-            define gcd 
-                =0? if drop exit endif 
-                swap over mod 
-                gcd 
-            end 
-            90 99 gcd 
-            234 8100 gcd) '())
-⇒ (18 9)
+(interpret #(0 if 1 endif) '())
+=> ()
+```
+
+```
+(interpret #(0 if 1 else 2 endif) '())
+=> (2)
+```
+
+```
+(interpret #(-1 if 1 endif) '())
+=> (1)
+```
+
+```
+(interpret #(-1 if 1 else 2 endif) '())
+=> (1)
+```
+
+```
+(interpret #(define -- 1 - end define -- 2 - end clear -- 5 --) '())
+=> (4)
+```
+
+```
+(interpret #(5 variable x 3 x + 2 *) '())
+=> (16)
+```
+
+```
+(interpret #(3 variable x 5 set x x) '())
+=> (5)
 ```
