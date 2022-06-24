@@ -4,7 +4,6 @@
     ((last2 op xs)
      (cons (op (car (cdr xs)) (car xs)) (cdr (cdr xs))))))
 
-
 ; Операции сравнения
 (define-syntax bool-2
   (syntax-rules (= > <)
@@ -16,7 +15,6 @@
            (cdr (cdr xs))))
     ((bool-2 < xs)
      (cons (or (and (< (car (cdr xs)) (car xs)) -1) 0)))))
-
 
 ; Логические операции
 (define-syntax lp
@@ -30,7 +28,6 @@
      (cons (or (and (and (equal? (car xs) 0) (equal? (car (cdr xs)) 0)) 0) -1)
            (cdr (cdr xs))))))
 
-
 ; Поиск номера+1 элемента в списке, начиная с определенной
 ; позиции с движением вправо
 (define (find-num+1 elem vec num)
@@ -39,7 +36,6 @@
            (+ num 1)
            (find-num+1 elem vec (+ num 1)))))
 
-
 ; Поиск номера элемента в списке, начиная с определенной
 ; позиции с движением влево
 (define (find-reverse elem vec num)
@@ -47,7 +43,6 @@
        (if (equal? elem (vector-ref vec num))
            num
            (find-reverse elem vec (- num 1)))))               
-
 
 ; Объявление предикатов (моя гордость)
 (for-each (lambda (x)
@@ -68,7 +63,6 @@
             clear
             ))                                               
 
-
 ; Простейшие процедуры
 (define (neg xs)
   (append (list (- (car xs))) (cdr xs)))
@@ -88,15 +82,10 @@
 (define (depth xs)
   (cons (length xs) xs))
 
-
 ; Удаление последнего объявления определенной функции
 (define (clear elem as)
   (define (iter xs as2)
     (if (equal? elem (car (car as2)))
         (reverse (append (reverse (cdr as2)) xs))
         (iter (cons (car as2) xs) (cdr as2))))
-  (iter '() as))                                                   
-
-
-
-
+  (iter '() as))
